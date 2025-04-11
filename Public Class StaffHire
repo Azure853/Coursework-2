@@ -1,0 +1,218 @@
+public class StaffHire 
+
+{ 
+
+    protected int vacancyNumber; 
+
+    protected String designationType; 
+
+    protected String jobType; 
+
+    protected String staffName; 
+
+    protected String joiningDate; 
+
+    protected String qualification; 
+
+    protected String appointedBy; 
+
+    protected boolean joined; 
+
+     
+
+public StaffHire(int vacancyNumber, String designationType, String jobType, String staffName, String joiningDate, String qualification, String appointedBy, boolean joined) 
+
+{ 
+
+    this.vacancyNumber = vacancyNumber; 
+
+    this.designationType = designationType; 
+
+    this.jobType = jobType; 
+
+    this.staffName = staffName; 
+
+    this.joiningDate = joiningDate; 
+
+    this.qualification = qualification; 
+
+    this.appointedBy = appointedBy; 
+
+    this.joined = joined; 
+
+} 
+
+   
+
+public int getVacancyNumber() 
+
+{ 
+
+    return vacancyNumber; 
+
+} 
+
+   
+
+public void setVacancyNumber(int newVacancyNumber) 
+
+{ 
+
+        vacancyNumber = newVacancyNumber; 
+
+} 
+
+  
+
+public String getDesignationType() 
+
+{ 
+
+    return designationType; 
+
+} 
+
+    
+
+public void setDesignationType(String newDesignationType) 
+
+{ 
+
+        designationType = newDesignationType; 
+
+} 
+
+  
+
+public String getJobType() 
+
+{ 
+
+    return jobType; 
+
+} 
+
+     
+
+public void setJobType(String newJobType) 
+
+{ 
+
+    jobType = newJobType; 
+
+} 
+
+     
+
+public String getStaffName() 
+
+{ 
+
+    return staffName; 
+
+} 
+
+  
+
+public void setStaffName(String newStaffName) 
+
+{ 
+
+    staffName = newStaffName; 
+
+} 
+
+  
+
+public String getJoiningDate() 
+
+{ 
+
+    return joiningDate; 
+
+} 
+
+  
+
+public void setJoiningDate(String newJoiningDate) 
+
+{ 
+
+    joiningDate = newJoiningDate; 
+
+} 
+
+  
+
+public String getQualification() 
+
+{ 
+
+    return qualification; 
+
+} 
+
+  
+
+public void setQualification(String newQualification) 
+
+{ 
+
+    qualification = newQualification; 
+
+} 
+
+  
+
+public String getAppointedBy() 
+
+{ 
+
+    return appointedBy; 
+
+} 
+
+  
+
+public void setAppointedBy(String someoneAppointedBy) 
+
+{ 
+
+    appointedBy = someoneAppointedBy; 
+
+} 
+
+  
+
+public boolean getJoined() 
+
+{ 
+
+    return joined; 
+
+} 
+
+  
+
+public void setJoined(boolean isJoined) 
+
+{ 
+
+    joined = isJoined; 
+
+} 
+
+public void displayInfo()
+{
+    System.out.println("Vacancy number: " + vacancyNumber);
+    System.out.println("Designation type: " + designationType);
+    System.out.println("Job type: " + jobType);
+    System.out.println("Staff Name: " + staffName);
+    System.out.println("Joining date: " + joiningDate);
+    System.out.println("Qualification: " + qualification);
+    System.out.println("Appointed by: " + appointedBy);
+    System.out.println("Joined: " + joined);
+    
+}
+
+} 
