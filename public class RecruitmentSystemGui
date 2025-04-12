@@ -109,7 +109,7 @@ public RecruitmentSystemGUI()
  
     frame.setSize(750, 750);  
  
-    frame.setLayout(new GridLayout(0, 2, 5, 5));  
+    frame.setLayout(new GridLayout(0,2,10,10));  
  
       
  
@@ -419,15 +419,8 @@ public void actionPerformed(ActionEvent event)
         int workingHour = 0;
         
         double wagesPerHour = 0;
-        
-        // Check that there is not an existing staff member with that vacancy number:
-        
-        if (vacancyNumberExists(vacancyNumber)) {
-            JOptionPane.showMessageDialog(null, "A staff member with that Vacancy Number already exists!");
-            return;
-        }
-        
-        // Exception handling for numberical values:
+      
+        // Exception handling for numerical values:
         
         try {
         
@@ -439,9 +432,18 @@ public void actionPerformed(ActionEvent event)
         
     } catch (NumberFormatException e) 
     {
-        JOptionPane.showMessageDialog(null, "Please check number inputs for Vacancy Number, Wages Per Hour, or Working Hours");
+        JOptionPane.showMessageDialog(null, "Please check number inputs for Vacancy Number, Wages Per Hour, and Working Hours");
         return;
     }
+    
+      
+        // Check that there is not an existing staff member with that vacancy number:
+        
+        if (vacancyNumberExists(vacancyNumber)) {
+            JOptionPane.showMessageDialog(null, "A staff member with that Vacancy Number already exists!");
+            return;
+        }
+        
  
     
     // Setting up the String and boolean values: 
@@ -469,6 +471,8 @@ public void actionPerformed(ActionEvent event)
         // Adding the part-time staff member to the database:
         
         database.add(staff);
+        
+        System.out.println("Part time staff member sucessfully created!");
         
         
     }
@@ -513,6 +517,8 @@ public void actionPerformed(ActionEvent event)
             return;
         }
         
+        boolean foundFullTime = false;
+        
         // For-each loop to find the full-time staff in the databse
         for (StaffHire staff : database)
         {
@@ -526,10 +532,16 @@ public void actionPerformed(ActionEvent event)
                 {
                     fullTime.setSalary(salary);
                     JOptionPane.showMessageDialog(null, "Salary set.");
+                    foundFullTime = true;
                     return;
                 }
                 
             }
+        }
+        
+        if (!foundFullTime)
+        {
+            System.out.println("Full time staff member with vacancy number: " + vacancyNumber + " could not be found");
         }
     }
     
@@ -561,7 +573,7 @@ public void actionPerformed(ActionEvent event)
     
     // Setting up a boolean flag:
     
-    boolean found = false;
+    boolean foundPartTime = false;
     
         
         // For-each loop to find the part-time staff in the database
@@ -578,13 +590,13 @@ public void actionPerformed(ActionEvent event)
                 {
                     partTime.setShifts(shifts);
                     System.out.println("New shifts set: " + shifts);
-                    found = true;
+                    foundPartTime = true;
                     break;
                 }
                 
             }
         }
-        if (!found)
+        if (!foundPartTime)
         {
             JOptionPane.showMessageDialog(null, "Part-Time staff with Vacancy number " + vacancyNumber + " not found.");
         }
@@ -593,8 +605,11 @@ public void actionPerformed(ActionEvent event)
     
     else if(event.getSource() == terminatePartTimeStaffButton)
     {
+        try{
         int vacancyNumber = Integer.parseInt(vacancyNumberField.getText());
         
+        boolean staffFoundTerminate = false;
+    
         // For-each loop to find the part-time staff in the database:
         
             for (StaffHire staff : database)
@@ -608,14 +623,36 @@ public void actionPerformed(ActionEvent event)
                         partTime.terminate();
                         System.out.println("Staff member terminated!");
                         System.out.println("-------------------");
+                        staffFoundTerminate = true;
+                        break;
                     }
                 }
             }
-    }
+                // If no staff member was found with the given vacancy number:
+                if (!staffFoundTerminate)
+                {
+                    System.out.println("No part-time staff found with vacancy number " + vacancyNumber);
+                }
+                         
+            } catch (NumberFormatException e)
+            {
+                System.out.println("The vacancy number that you entered was not found on the database.");
+            }
+            
+        }
     
     else if(event.getSource() == displayNumberButton)
     {
-        int vacancyNumber = Integer.parseInt(vacancyNumberField.getText());
+        int vacancyNumber = -1;
+        
+        try {
+        vacancyNumber = Integer.parseInt(vacancyNumberField.getText());
+    } catch (NumberFormatException e)
+    {
+      System.out.println("Please enter a number for Vacancy Number!");
+      return;
+    }
+        boolean staffFoundDisplay = false;
         
         for (StaffHire staff : database)
         {
@@ -626,6 +663,7 @@ public void actionPerformed(ActionEvent event)
                 if (fullTime.getVacancyNumber() == vacancyNumber)
                 {
                 fullTime.displayFullTimeInfo();
+                staffFoundDisplay = true;
                 }
 
             }
@@ -637,8 +675,14 @@ public void actionPerformed(ActionEvent event)
                 if (partTime.getVacancyNumber() == vacancyNumber)
                 {
                     partTime.displayPartTimeInfo();
+                    staffFoundDisplay = true;
                 }
             }
+        }
+        
+        if (!staffFoundDisplay) 
+        {
+            System.out.println("No staff member found with vacancy number: " + vacancyNumber);
         }
         
     }
